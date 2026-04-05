@@ -1,3 +1,4 @@
+class_name InteractPrompt
 extends CanvasLayer
 
 @onready var label: Label = $MarginContainer/Panel/Label

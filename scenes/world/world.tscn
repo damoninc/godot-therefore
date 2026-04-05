@@ -1,13 +1,19 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=5 format=3]
 
 [ext_resource type="Script" path="res://scripts/world/world.gd" id="1_world"]
 [ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="2_player"]
 [ext_resource type="PackedScene" path="res://scenes/ui/interact_prompt.tscn" id="3_prompt"]
+[ext_resource type="Texture2D" path="res://assets/tiles/placeholder_tileset.png" id="4_tileset"]
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_world")
 
 [node name="Ground" type="Node2D" parent="."]
+
+[node name="PlaceholderTileset" type="Sprite2D" parent="Ground"]
+texture = ExtResource("4_tileset")
+position = Vector2(96, 96)
+scale = Vector2(3, 3)
 
 [node name="Player" parent="." instance=ExtResource("2_player")]
 position = Vector2(160, 160)
