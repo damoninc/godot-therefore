@@ -1,7 +1,7 @@
 extends Node2D
 
 @onready var player: CharacterBody2D = $Player
-@onready var prompt: InteractPrompt = $InteractPrompt
+@onready var prompt: CanvasLayer = $InteractPrompt
 @onready var prompt_timer: Timer = $PromptTimer
 
 func _ready() -> void:
