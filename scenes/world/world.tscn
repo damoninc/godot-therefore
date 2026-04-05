@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3]
+[gd_scene load_steps=14 format=3]
 
 [ext_resource type="Script" path="res://scripts/world/world.gd" id="1_world"]
 [ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="2_player"]
@@ -9,8 +9,34 @@
 [ext_resource type="PackedScene" path="res://scenes/interactables/npc_stand_in.tscn" id="6_npc"]
 [ext_resource type="Texture2D" path="res://assets/props/placeholder_props.png" id="7_props"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_door_blocker"]
+size = Vector2(24, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sign_blocker"]
+size = Vector2(20, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_npc_blocker"]
+size = Vector2(20, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_north_boundary"]
+size = Vector2(368, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vertical_boundary"]
+size = Vector2(16, 256)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_south_boundary"]
+size = Vector2(368, 16)
+
 [node name="World" type="Node2D"]
 script = ExtResource("1_world")
+
+[node name="SpawnMarkers" type="Node2D" parent="."]
+
+[node name="start" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(160, 160)
+
+[node name="doorway" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(288, 128)
 
 [node name="Ground" type="Node2D" parent="."]
 z_index = 0
@@ -68,9 +94,55 @@ position = Vector2(224, 128)
 
 [node name="Door" parent="." instance=ExtResource("5_door")]
 position = Vector2(320, 96)
+target_map_id = "world"
+target_spawn_marker = "doorway"
 
 [node name="NpcStandIn" parent="." instance=ExtResource("6_npc")]
 position = Vector2(256, 224)
+
+[node name="Blockers" type="Node2D" parent="."]
+
+[node name="DoorBlocker" type="StaticBody2D" parent="Blockers"]
+position = Vector2(320, 96)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Blockers/DoorBlocker"]
+shape = SubResource("RectangleShape2D_door_blocker")
+
+[node name="SignBlocker" type="StaticBody2D" parent="Blockers"]
+position = Vector2(224, 128)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Blockers/SignBlocker"]
+shape = SubResource("RectangleShape2D_sign_blocker")
+
+[node name="NpcBlocker" type="StaticBody2D" parent="Blockers"]
+position = Vector2(256, 224)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Blockers/NpcBlocker"]
+shape = SubResource("RectangleShape2D_npc_blocker")
+
+[node name="NorthBoundary" type="StaticBody2D" parent="Blockers"]
+position = Vector2(176, -8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Blockers/NorthBoundary"]
+shape = SubResource("RectangleShape2D_north_boundary")
+
+[node name="WestBoundary" type="StaticBody2D" parent="Blockers"]
+position = Vector2(-8, 120)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Blockers/WestBoundary"]
+shape = SubResource("RectangleShape2D_vertical_boundary")
+
+[node name="EastBoundary" type="StaticBody2D" parent="Blockers"]
+position = Vector2(344, 120)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Blockers/EastBoundary"]
+shape = SubResource("RectangleShape2D_vertical_boundary")
+
+[node name="SouthBoundary" type="StaticBody2D" parent="Blockers"]
+position = Vector2(176, 248)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Blockers/SouthBoundary"]
+shape = SubResource("RectangleShape2D_south_boundary")
 
 [node name="Foreground" type="Node2D" parent="."]
 z_index = 4

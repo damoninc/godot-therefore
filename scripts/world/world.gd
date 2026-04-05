@@ -1,5 +1,6 @@
 extends Node2D
 
+const WORLD_MAP_ID := "world"
 const TILE_SIZE := Vector2i(16, 16)
 const TERRAIN_TEXTURE: Texture2D = preload("res://assets/tiles/placeholder_tileset.png")
 const GRASS_VARIANTS := [Vector2i(0, 0), Vector2i(1, 0), Vector2i(0, 1), Vector2i(1, 1), Vector2i(2, 2), Vector2i(3, 2), Vector2i(2, 3), Vector2i(3, 3)]
@@ -12,11 +13,14 @@ const CLIFF_VARIANTS := [Vector2i(0, 3), Vector2i(1, 3)]
 @onready var prompt: CanvasLayer = $InteractPrompt
 @onready var prompt_controller: InteractPrompt = $InteractPrompt
 @onready var prompt_timer: Timer = $PromptTimer
+@onready var spawn_markers: Node = $SpawnMarkers
 
 func _ready() -> void:
 	add_to_group("world")
 	prompt_timer.timeout.connect(_on_prompt_timer_timeout)
 	_build_terrain()
+	_place_player_at_spawn()
+	GameState.current_map_id = WORLD_MAP_ID
 
 func show_prompt(text: String) -> void:
 	prompt_controller.show_message(text)
@@ -27,6 +31,15 @@ func clear_prompt() -> void:
 
 func _on_prompt_timer_timeout() -> void:
 	prompt_controller.clear_message()
+
+func _place_player_at_spawn() -> void:
+	var spawn_marker_name := GameState.player_spawn_marker
+	var spawn_marker := spawn_markers.get_node_or_null(spawn_marker_name) as Marker2D
+	if spawn_marker == null:
+		spawn_marker = spawn_markers.get_node_or_null("start") as Marker2D
+		GameState.player_spawn_marker = "start"
+	if spawn_marker != null:
+		player.global_position = spawn_marker.global_position
 
 func _build_terrain() -> void:
 	var tile_set := TileSet.new()
