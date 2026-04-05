@@ -20,3 +20,4 @@ shape = SubResource("RectangleShape2D_player_body")
 target_position = Vector2(0, 18)
 enabled = true
 collide_with_areas = true
+collide_with_bodies = false
