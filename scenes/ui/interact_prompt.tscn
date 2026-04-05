@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/interact_prompt.gd" id="1_prompt"]
+
+[node name="InteractPrompt" type="CanvasLayer"]
+visible = false
+script = ExtResource("1_prompt")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+offset_left = 24.0
+offset_top = 600.0
+offset_right = 520.0
+offset_bottom = 688.0
+
+[node name="Panel" type="Panel" parent="MarginContainer"]
+
+[node name="Label" type="Label" parent="MarginContainer/Panel"]
+offset_left = 20.0
+offset_top = 16.0
+offset_right = 440.0
+offset_bottom = 48.0
+text = "Placeholder prompt"
