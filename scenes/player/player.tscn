@@ -19,3 +19,4 @@ shape = SubResource("RectangleShape2D_player_body")
 [node name="InteractionRay" type="RayCast2D" parent="."]
 target_position = Vector2(0, 18)
 enabled = true
+collide_with_areas = true

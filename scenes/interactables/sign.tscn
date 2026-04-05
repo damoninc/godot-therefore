@@ -7,6 +7,7 @@ size = Vector2(16, 16)
 
 [node name="Sign" type="Area2D"]
 script = ExtResource("1_sign")
+interaction_text = "The path ahead leads toward the old hill."
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_sign")
