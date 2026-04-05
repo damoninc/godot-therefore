@@ -138,5 +138,5 @@ The first playable demo is successful when:
 ## Repo Identity
 
 - Repository name: `godot-therefore`
-- Repository path: `/home/damon/GitHub/godot-therefore`
+- Repository path: `/home/damon/GitHub/godot-therefore` <- For local development on WSL
 - Project purpose: Godot 4 JRPG-style overworld technical demo with clean foundations for later expansion
